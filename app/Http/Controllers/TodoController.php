@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use App\Models\TodoStatus;
+use Illuminate\Support\Facades\Log;
 
 class TodoController extends Controller
 {
@@ -39,7 +40,7 @@ class TodoController extends Controller
     }
     public function getMyTodos(Request $request)
     {
-        return response()->json(["todos" => Auth::user()->todos]);
+        return response()->json(Auth::user()->todos);
     }
     public function update(Request $request, Todo $todo)
     {

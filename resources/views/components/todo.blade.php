@@ -23,14 +23,6 @@ new class extends Component {
 
 <li class="list-row" wire:dblclick="edit" class="flex gap-5">
     <div>
-        <form method="POST" id="saveForm" action="/todo/{{$todo->id}}" class="flex gap-5">
-            @csrf
-            @method("patch")
-            @if($editing)
-                <input type="text" name="name" value="{{$todo->name}}" class="input"/>
-            @endif
-            <input type="hidden" name="status" value="{{$selectedStatus}}" class="input">
-        </form>
         @unless($editing)
             <div class="flex items-center h-full">
                 <p>{{$todo->name}}</p>
@@ -46,7 +38,15 @@ new class extends Component {
     </div>
     <div class="flex gap-5">
         @if ($editing || $todo->status != $selectedStatus)
-            <input type="submit" value="Save" form="saveForm" class="btn btn-neutral" />
+            <form method="POST" id="saveForm" action="/todo/{{$todo->id}}" class="flex gap-5">
+                @csrf
+                @method("patch")
+                @if($editing)
+                    <input type="text" name="name" value="{{$todo->name}}" class="input"/>
+                @endif
+                <input type="hidden" name="status" value="{{$selectedStatus}}" class="input">
+                <input type="submit" value="Save" form="saveForm" class="btn btn-neutral" />
+            </form>
         @endif
         <form method="POST" action="/todo/{{$todo->id}}">
             @csrf
